@@ -56,12 +56,16 @@ print('input file: \t%s' % original)
 print('dimensions: \t%dpx by %dpx' % (width, height))
 
 print('\nSpecify Grid Dimensions')
+squareGrid = input('square grid? (yes/no) > ').lower().startswith('y')
 
 cols = int(input('columns > '))
 dx = width / cols
 
-rows = int(input('rows    > '))
-dy = height / rows
+if squareGrid:
+    dy = height/round(height/dx)
+else:
+    rows = int(input('rows    > '))
+    dy = height / rows
 
 pic = list(info[2])
 
