@@ -1,6 +1,9 @@
 # input/output images
 *.png
 
+# generated python files
+__pycache__/*
+
 # text editing swapfiles
 *.swp
 
