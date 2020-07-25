@@ -5,7 +5,7 @@ import cmd
 from collections import namedtuple
 
 Pixel = namedtuple('Pixel', 'r g b a')
-class File:
+class Pathspec:
     def __init__(self, pathspec, defaultExtension = None):
         if '/' in pathspec:
             self.directory = pathspec[0:pathspec.rfind('/')]
@@ -45,8 +45,8 @@ def savePixel(x, y, p):
 def t(n):
     return (255 - n) // 2
 
-original = File(sys.argv[1], 'png')
-final = File(original.directory + original.name + '_with_grid.png')
+original = Pathspec(sys.argv[1], 'png')
+final = Pathspec(original.directory + original.name + '_with_grid.png')
 
 info = png.Reader(original.path).read()
 width, height = info[0:2]
