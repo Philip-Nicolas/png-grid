@@ -22,12 +22,14 @@ def t(n):
 
 pathToOriginal = sys.argv[1]
 
-print('Reading original: ' + pathToOriginal)
 info = png.Reader(pathToOriginal).read()
 
 width, height = info[0:2]
-print('Size (pixels): %d by %d' % (width, height))
+print('\nOriginal Image Details')
+print('filename:   \t' + pathToOriginal)
+print('dimensions: \t%dpx by %dpx' % (width, height))
 
+print('\nSpecify Grid Dimensions')
 gridCols = int(input('columns > '))
 gridRows = int(input('rows    > '))
 
@@ -36,8 +38,8 @@ pic = list(info[2])
 xInterval = width / gridCols
 yInterval = height / gridRows
 
-print('X-Interval: %d' % xInterval)
-print('Y-Interval: %d' % yInterval)
+print('\nFinal Image Details')
+print('grid spacing: \t%dpx by %dpx' % (xInterval, yInterval))
 
 for y in range(1, height-1):
     for x in range(1, width-1):
