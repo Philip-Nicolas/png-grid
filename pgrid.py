@@ -39,8 +39,8 @@ yInterval = height / gridRows
 print('X-Interval: %d' % xInterval)
 print('Y-Interval: %d' % yInterval)
 
-for y in range(0, height-1):
-    for x in range(0, width-1):
+for y in range(1, height-1):
+    for x in range(1, width-1):
         if math.floor(y % yInterval) == 0 or math.floor(x % xInterval) == 0:
             p = getPixel(x, y)
             savePixel(x, y, Pixel(t(p.r), t(p.g), t(p.b), 255))
