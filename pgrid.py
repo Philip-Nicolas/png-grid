@@ -56,17 +56,18 @@ print('input file: \t%s' % original)
 print('dimensions: \t%dpx by %dpx' % (width, height))
 
 print('\nSpecify Grid Dimensions')
-gridCols = int(input('columns > '))
-gridRows = int(input('rows    > '))
+
+cols = int(input('columns > '))
+dx = width / cols
+
+rows = int(input('rows    > '))
+dy = height / rows
 
 pic = list(info[2])
 
-xInterval = width / gridCols
-yInterval = height / gridRows
-
 for y in range(1, height-1):
     for x in range(1, width-1):
-        if math.floor(y % yInterval) == 0 or math.floor(x % xInterval) == 0:
+        if math.floor(y % dy) == 0 or math.floor(x % dx) == 0:
             p = getPixel(x, y)
             savePixel(x, y, Pixel(t(p.r), t(p.g), t(p.b), 255))
 
@@ -75,4 +76,4 @@ img.save(final.path)
 
 print('\nFinal Image Details')
 print('output file:  \t%s' % final.path)
-print('grid spacing: \t%dpx by %dpx' % (xInterval, yInterval))
+print('grid spacing: \t%dpx by %dpx' % (dx, dy))
