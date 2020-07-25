@@ -1,5 +1,6 @@
 import png
 import math
+import sys
 from collections import namedtuple
 
 Pixel = namedtuple('Pixel', 'r g b a')
@@ -18,10 +19,14 @@ def savePixel(x, y, p):
 def t(n):
     return (255 - n) // 3
 
+pathToOriginal = sys.argv[1]
+
 gridCols = 9#17
 gridRows = 16#25
 
-info = png.Reader("p.png").read()
+print('Reading original: ' + pathToOriginal)
+info = png.Reader(pathToOriginal).read()
+
 width, height = info[0:2]
 pic = list(info[2])
 
