@@ -52,7 +52,7 @@ info = png.Reader(original.path).read()
 width, height = info[0:2]
 
 print('\nOriginal Image Details')
-print('filename:   \t%s' % original)
+print('input file: \t%s' % original)
 print('dimensions: \t%dpx by %dpx' % (width, height))
 
 print('\nSpecify Grid Dimensions')
