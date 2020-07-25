@@ -5,7 +5,6 @@ import cmd
 from collections import namedtuple
 
 Pixel = namedtuple('Pixel', 'r g b a')
-
 class File:
     def __init__(self, pathspec, defaultExtension = None):
         if '/' in pathspec:
@@ -29,6 +28,9 @@ class File:
         self.path = self.directory + self.name + self.extension
         self.filename = self.name + self.extension
 
+    def __str__(self):
+        return self.path
+
 def getPixel(x, y):
     x *= 4
     return Pixel(*pic[y][x:x+4])
@@ -48,7 +50,7 @@ info = png.Reader(original.path).read()
 
 width, height = info[0:2]
 print('\nOriginal Image Details')
-print('filename:   \t%s' % original.path)
+print('filename:   \t%s' % original)
 print('dimensions: \t%dpx by %dpx' % (width, height))
 
 print('\nSpecify Grid Dimensions')
