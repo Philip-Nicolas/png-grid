@@ -6,6 +6,29 @@ from collections import namedtuple
 
 Pixel = namedtuple('Pixel', 'r g b a')
 
+class File:
+    def __init__(self, pathspec, defaultExtension = None):
+        if '/' in pathspec:
+            self.directory = pathspec[0:pathspec.rfind('/')]
+            self.directory += '/' if not self.directory.endswith('/') else ''
+            dirent = pathspec.split('/').pop()
+        else:
+            self.directory = ''
+            dirent = pathspec
+
+        if '.' in dirent:
+            self.name, _, extension = dirent.rpartition('.')
+            self.extension = '.' + extension
+        else:
+            self.name = dirent
+            self.extension = ''
+        
+        if defaultExtension is not None and self.extension == '':
+            self.extension = defaultExtension if '.' in defaultExtension else '.' + defaultExtension
+
+        self.path = self.directory + self.name + self.extension
+        self.filename = self.name + self.extension
+
 def getPixel(x, y):
     x *= 4
     return Pixel(*pic[y][x:x+4])
@@ -20,13 +43,12 @@ def savePixel(x, y, p):
 def t(n):
     return (255 - n) // 2
 
-pathToOriginal = sys.argv[1]
-
-info = png.Reader(pathToOriginal).read()
+original = File(sys.argv[1], 'png')
+info = png.Reader(original.path).read()
 
 width, height = info[0:2]
 print('\nOriginal Image Details')
-print('filename:   \t' + pathToOriginal)
+print('filename:   \t%s' % original.path)
 print('dimensions: \t%dpx by %dpx' % (width, height))
 
 print('\nSpecify Grid Dimensions')
@@ -38,7 +60,10 @@ pic = list(info[2])
 xInterval = width / gridCols
 yInterval = height / gridRows
 
+final = File(original.directory + original.name + '_with_grid.png')
+
 print('\nFinal Image Details')
+print('output file:  \t%s' % final.path)
 print('grid spacing: \t%dpx by %dpx' % (xInterval, yInterval))
 
 for y in range(1, height-1):
@@ -48,4 +73,4 @@ for y in range(1, height-1):
             savePixel(x, y, Pixel(t(p.r), t(p.g), t(p.b), 255))
 
 img = png.from_array(pic, 'RGBA')
-img.save('res.png')
+img.save(final.path)
