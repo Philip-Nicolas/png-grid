@@ -1,4 +1,7 @@
 *.png
 
+# text editing swapfiles
+*.swp
+
 # Mac system files
 .DS_Store
