@@ -28,6 +28,8 @@ print('Reading original: ' + pathToOriginal)
 info = png.Reader(pathToOriginal).read()
 
 width, height = info[0:2]
+print('Size (pixels): %d by %d' % (width, height))
+
 pic = list(info[2])
 
 xInterval = width / gridCols
