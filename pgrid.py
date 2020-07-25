@@ -57,8 +57,7 @@ print('dimensions: \t%dpx by %dpx' % (width, height))
 
 print('\nSpecify Grid Dimensions')
 sqIn = input('square grid? (yes/no) > ')
-sqIn = 'y' if sqIn == '' else sqIn
-squareGrid = sqIn.lower().startswith('y')
+squareGrid = True if sqIn == '' else sqIn.lower().startswith('y')
 
 cols = int(input('columns > '))
 dx = width / cols
