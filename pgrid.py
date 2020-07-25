@@ -45,5 +45,5 @@ for y in range(1, height-1):
             p = getPixel(x, y)
             savePixel(x, y, Pixel(t(p.r), t(p.g), t(p.b), 255))
 
-img = png.from_array(pic, "RGBA")
-img.save("res.png")
+img = png.from_array(pic, 'RGBA')
+img.save('res.png')
