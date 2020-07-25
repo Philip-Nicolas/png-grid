@@ -18,7 +18,7 @@ def savePixel(x, y, p):
     pic[y][x+3] = p.a
 
 def t(n):
-    return (255 - n) // 3
+    return (255 - n) // 2
 
 pathToOriginal = sys.argv[1]
 
