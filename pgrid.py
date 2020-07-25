@@ -46,9 +46,11 @@ def t(n):
     return (255 - n) // 2
 
 original = File(sys.argv[1], 'png')
-info = png.Reader(original.path).read()
+final = File(original.directory + original.name + '_with_grid.png')
 
+info = png.Reader(original.path).read()
 width, height = info[0:2]
+
 print('\nOriginal Image Details')
 print('filename:   \t%s' % original)
 print('dimensions: \t%dpx by %dpx' % (width, height))
@@ -62,12 +64,6 @@ pic = list(info[2])
 xInterval = width / gridCols
 yInterval = height / gridRows
 
-final = File(original.directory + original.name + '_with_grid.png')
-
-print('\nFinal Image Details')
-print('output file:  \t%s' % final.path)
-print('grid spacing: \t%dpx by %dpx' % (xInterval, yInterval))
-
 for y in range(1, height-1):
     for x in range(1, width-1):
         if math.floor(y % yInterval) == 0 or math.floor(x % xInterval) == 0:
@@ -76,3 +72,7 @@ for y in range(1, height-1):
 
 img = png.from_array(pic, 'RGBA')
 img.save(final.path)
+
+print('\nFinal Image Details')
+print('output file:  \t%s' % final.path)
+print('grid spacing: \t%dpx by %dpx' % (xInterval, yInterval))
