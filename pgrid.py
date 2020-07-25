@@ -4,7 +4,7 @@ import sys
 import cmd
 from collections import namedtuple
 
-Pixel = namedtuple('Pixel', 'r g b a')
+Pixel = namedtuple('Pixel', 'x y r g b a')
 class Pathspec:
     def __init__(self, pathspec, defaultExtension = None):
         if '/' in pathspec:
@@ -32,15 +32,15 @@ class Pathspec:
         return self.path
 
 def getPixel(x, y):
-    x *= 4
-    return Pixel(*pic[y][x:x+4])
+    xAddr = x * 4
+    return Pixel(x, y, *pic[y][xAddr:xAddr+4])
 
-def savePixel(x, y, p):
-    x *= 4
-    pic[y][x+0] = p.r
-    pic[y][x+1] = p.g
-    pic[y][x+2] = p.b
-    pic[y][x+3] = p.a
+def savePixel(p):
+    xAddr = p.x * 4
+    pic[p.y][xAddr+0] = p.r
+    pic[p.y][xAddr+1] = p.g
+    pic[p.y][xAddr+2] = p.b
+    pic[p.y][xAddr+3] = p.a
 
 def t(n):
     return (255 - n) // 2
@@ -74,7 +74,7 @@ for y in range(1, height-1):
     for x in range(1, width-1):
         if math.floor(y % dy) == 0 or math.floor(x % dx) == 0:
             p = getPixel(x, y)
-            savePixel(x, y, Pixel(t(p.r), t(p.g), t(p.b), 255))
+            savePixel(Pixel(x, y, t(p.r), t(p.g), t(p.b), 255))
 
 img = png.from_array(pic, 'RGBA')
 img.save(final.path)
