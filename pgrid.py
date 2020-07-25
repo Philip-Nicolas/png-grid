@@ -1,6 +1,7 @@
 import png
 import math
 import sys
+import cmd
 from collections import namedtuple
 
 Pixel = namedtuple('Pixel', 'r g b a')
@@ -21,14 +22,14 @@ def t(n):
 
 pathToOriginal = sys.argv[1]
 
-gridCols = 9#17
-gridRows = 16#25
-
 print('Reading original: ' + pathToOriginal)
 info = png.Reader(pathToOriginal).read()
 
 width, height = info[0:2]
 print('Size (pixels): %d by %d' % (width, height))
+
+gridCols = int(input('columns > '))
+gridRows = int(input('rows    > '))
 
 pic = list(info[2])
 
