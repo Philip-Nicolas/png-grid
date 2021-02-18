@@ -24,7 +24,7 @@ def t(n):
 original = Pathspec(sys.argv[1], 'png')
 final = Pathspec(original.directory + original.name + '_with_grid.png')
 
-info = png.Reader(original.path).read()
+info = png.Reader(original.path).asRGBA()
 width, height = info[0:2]
 
 print('\nOriginal Image Details')
